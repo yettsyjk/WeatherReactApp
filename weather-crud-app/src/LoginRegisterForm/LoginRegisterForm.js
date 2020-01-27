@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { Form, Button, Grid, Message, Segment } from 'semantic-ui-react'
 
 class LoginRegisterForm extends Component {
     constructor(){
         state()
+
         this.state = {
             email: '',
             password: '',
@@ -10,6 +12,7 @@ class LoginRegisterForm extends Component {
             action: 'login'
         }
     }
+
     login = async(loginInfo) => {
        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/users/login`, {
         method: 'POST', 
@@ -36,8 +39,10 @@ class LoginRegisterForm extends Component {
             headers: {
                 'Content-Type': 'application/json'
             }
-    })
+        })
+
         const parsedRegisterResponse = await response.json();
+
         if(parsedRegisterResponse.status.code === 200) {
 
             this.props.loggedStatus(parsedRegisterResponse.data.email)
@@ -58,6 +63,7 @@ class LoginRegisterForm extends Component {
         e.preventDefault()
         this.loginRegister()
     }
+
     swicthForm = () => {
         if (this.state.action === "login") {
             this.setState({
@@ -70,67 +76,84 @@ class LoginRegisterForm extends Component {
         }
     }
 
-render() {
-    return (
-        <div className="LoginRegisterForm">
-            { !this.props.loggedIn ?
-            <Grid textAlign='center' style={{ height: '100vh'}} verticalAlign='middle'>
-                <Grid.Column style={{ maxWidth: 450}}>
-                    <Form size='large' onSubmit={}>
-                        <Segment stacked>
-                            {this.state.action === "register" ?
-                            <React.Fragment>
+    loginRegister =() => {
+        if(this.state.action === "login"){
+            this.login({
+                email: this.state.email,
+                password: this.state.password
+            })
+        } else {
+            then.register({
+                email: this.state.email,
+                username: this.state.username,
+                password: this.state.password
+            })
+        }
+    }
+
+    render() {
+        return (
+            <div className="LoginRegisterForm">
+                { !this.props.loggedIn ?
+                <Grid textAlign='center' style={{ height: '100vh'}} verticalAlign='middle'>
+                    <Grid.Column style={{ maxWidth: 450}}>
+                        <Form size='large' onSubmit={}>
+                            <Segment stacked>
+                                { this.state.action === "register" ?
+                                <React.Fragment>
+                                    <Form.Input
+                                        fluid
+                                        icon="user"
+                                        iconPosition='left'
+                                        type="text"
+                                        name="username"
+                                        placeholder="Username"
+                                        value={this.state.username}
+                                        onChange={this.handleChange}
+                                    />
+                                </React.Fragment>
+                                :
+                                null
+                                }
                                 <Form.Input
                                     fluid
-                                    icon="user"
+                                    icon="mail"
                                     iconPosition='left'
-                                    type="text"
-                                    name="username"
-                                    placeholder="Username"
-                                    value={this.state.username}
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    value={this.state.email}
                                     onChange={this.handleChange}
                                 />
-                            </React.Fragment>:
-                            null
-                            }
-                            <Form.Input
-                            fluid
-                            icon="mail"
-                            iconPosition='left'
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={this.state.email}
-                            onChange={this.handleChange}
-                            />
-                            <Form.Input
-                            fluid
-                            icon="lock"
-                            iconPosition='left'
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            />
-                            <Button fluid size='large' type="Submit">
-                                {this.state.action === "register" ? "Register" : "Log In"}
-                            </Button>
-                        </Segment>
-                    </Form>
-                    <Message>
-                        { this.state.action === "register" ? 
-                        <small>Already have an account? Log In <span onClick={this.switchForm}> here </span>.</small>
-                       :
-                       <small>Need a free account? Sign up<span onClick={this.swicthForm}>here</span>!</small> 
-                    }
-                    </Message>
-                </Grid.Column>
-            </Grid>
-            :
-            <div></div>}
-        </div>
-        )
-    }  
+                                <Form.Input
+                                    fluid
+                                    icon="lock"
+                                    iconPosition='left'
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    value={this.state.password}
+                                    onChange={this.handleChange}
+                                />
+                                <Button fluid size='large' type="Submit">
+                                    {this.state.action === "register" ? "Register" : "Log In"}
+                                </Button>
+                            </Segment>
+                        </Form>
+                        <Message>
+                            { this.state.action === "register" ? 
+                            <small>Already have an account? Log In <span onClick={this.switchForm}> here </span>.</small>
+                        :
+                        <small>Need a free account? Sign up<span onClick={this.swicthForm}>here</span>!</small> 
+                        }
+                        </Message>
+                    </Grid.Column>
+                </Grid>
+                :
+                <div></div>}
+            </div>
+            )
+        }  
 }
+
 export default LoginRegisterForm
