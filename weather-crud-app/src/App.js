@@ -1,12 +1,10 @@
-import React, { Component} from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react';
+import './App.css';
 
+import Footer from '.components/layout.Footer'
+import Navbar from '.components/layout.Navbar'
 
-import LoginRegisterForm from './LoginRegisterForm';
-
-
-
-const My404 = () => {
+function App() {
   return (
     <div>
       You are Lost
