@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component} from 'react';
+import LoginRegisterForm from './LoginRegisterForm';
+import { Route, Switch } from 'react-router-dom';
 
-function App() {
+
+const My404 = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      You are Lost
     </div>
-  );
+  )
+};
+class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      loggedIn: false,
+      loggedInUserEmail: null
+    }
+  }
+  render (){
+    return(
+    <main>
+      <Route exact path="/" render={(props) =>  <LoginRegisterForm {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} /> } />
+      <Route component={ My404 } />
+    </main>
+    )
+  }
 }
-
 export default App;
