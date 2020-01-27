@@ -8,7 +8,6 @@ import CityList from '';
 import EditCityModal from '';
 
 
-
 class CitiesContainer extends Component {
     state = {
         cities: [],
