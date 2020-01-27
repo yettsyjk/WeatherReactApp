@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class LoginRegisteForm extends Component {
+class LoginRegisterForm extends Component {
     constructor(){
         state()
         this.state = {
@@ -32,7 +32,7 @@ class LoginRegisteForm extends Component {
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/users/register`, {
             method: 'POST',
             credentials: 'include',
-            body: JSON.stringify(registerinfo),
+            body: JSON.stringify(registerInfo),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -133,4 +133,4 @@ render() {
         )
     }  
 }
-export default LoginRegisteForm
+export default LoginRegisterForm

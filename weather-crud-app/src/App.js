@@ -1,6 +1,9 @@
 import React, { Component} from 'react';
-import LoginRegisterForm from './LoginRegisterForm';
 import { Route, Switch } from 'react-router-dom';
+
+
+import LoginRegisterForm from './LoginRegisterForm';
+
 
 
 const My404 = () => {
@@ -18,13 +21,44 @@ class App extends Component {
       loggedInUserEmail: null
     }
   }
+
+  handleLoggedInStatus = (loggedInUserEmail) => {
+    this.setState({
+      loggedIn: true,
+      loggedInUserEmail: loggedInUserEmail
+    })
+  }
+
+  logout = async () => {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/users/logout`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+  })
+   
+  const parsedLogoutResponse = await response.json();
+
+  if(parsedLogoutResponse.status.code === 200){
+    this.setState({
+      loggedIn: false,
+      loggedInUserEmail: ''
+    })
+  } else {
+    console.log('Register Failed: ', parsedLogoutResponse);
+  }
+  }
+
   render (){
     return(
     <main>
+      
       <Route exact path="/" render={(props) =>  <LoginRegisterForm {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} /> } />
       <Route component={ My404 } />
     </main>
     )
   }
 }
+
 export default App;
