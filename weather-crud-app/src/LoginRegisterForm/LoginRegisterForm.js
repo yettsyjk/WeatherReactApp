@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { Form, Button, Grid, Message, Segment } from 'semantic-ui-react'
+// import { Form, Button, Grid, Message, Segment } from 'semantic-ui-react'
 
 class LoginRegisterForm extends Component {
     constructor(){
         state()
-
         this.state = {
             email: '',
             password: '',
@@ -76,14 +75,14 @@ class LoginRegisterForm extends Component {
         }
     }
 
-    loginRegister =() => {
-        if(this.state.action === "login"){
+    loginRegister = () => {
+        if(this.state.action === "login") {
             this.login({
                 email: this.state.email,
                 password: this.state.password
             })
         } else {
-            then.register({
+            this.register({
                 email: this.state.email,
                 username: this.state.username,
                 password: this.state.password
@@ -97,9 +96,9 @@ class LoginRegisterForm extends Component {
                 { !this.props.loggedIn ?
                 <Grid textAlign='center' style={{ height: '100vh'}} verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 450}}>
-                        <Form size='large' onSubmit={}>
+                        <Form size='large' onSubmit={this.handleSubmit}>
                             <Segment stacked>
-                                { this.state.action === "register" ?
+                                {this.state.action === "register" ?
                                 <React.Fragment>
                                     <Form.Input
                                         fluid
@@ -115,15 +114,16 @@ class LoginRegisterForm extends Component {
                                 :
                                 null
                                 }
+
                                 <Form.Input
-                                    fluid
-                                    icon="mail"
-                                    iconPosition='left'
-                                    type="email"
-                                    name="email"
-                                    placeholder="Email"
-                                    value={this.state.email}
-                                    onChange={this.handleChange}
+                                fluid
+                                icon="mail"
+                                iconPosition='left'
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                value={this.state.email}
+                                onChange={this.handleChange}
                                 />
                                 <Form.Input
                                     fluid
@@ -142,10 +142,10 @@ class LoginRegisterForm extends Component {
                         </Form>
                         <Message>
                             { this.state.action === "register" ? 
-                            <small>Already have an account? Log In <span onClick={this.switchForm}> here </span>.</small>
-                        :
-                        <small>Need a free account? Sign up<span onClick={this.swicthForm}>here</span>!</small> 
-                        }
+                                <small>Already have an account? Log In <span onClick={this.switchForm}> here </span>.</small>
+                                :
+                                <small>Need a free account? Sign up<span onClick={this.swicthForm}>here</span>!</small> 
+                            }
                         </Message>
                     </Grid.Column>
                 </Grid>
@@ -155,5 +155,4 @@ class LoginRegisterForm extends Component {
             )
         }  
 }
-
 export default LoginRegisterForm
