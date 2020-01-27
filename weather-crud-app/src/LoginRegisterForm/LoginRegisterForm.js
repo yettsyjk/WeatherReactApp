@@ -73,6 +73,7 @@ class LoginRegisteForm extends Component {
 render() {
     return (
         <div className="LoginRegisterForm">
+            { !this.props.loggedIn ?
             <Grid textAlign='center' style={{ height: '100vh'}} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450}}>
                     <Form size='large' onSubmit={}>
