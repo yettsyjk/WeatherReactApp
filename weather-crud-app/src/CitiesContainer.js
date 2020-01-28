@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Grid, Button } from 'semantic-ui-react';
+import CitiesList from './CitiesList';
 
 
 
-import CreateCity from '';
-import CityList from '';
-import EditCityModal from '';
+// import CreateCity from '';
+// import CityList from '';
+// import EditCityModal from '';
 
 
 class CitiesContainer extends Component {
@@ -165,7 +166,7 @@ class CitiesContainer extends Component {
                                     editCity={this.editCity}
                                 />
                             </Grid.Column>
-                            <CreateCity
+                            {/* <CreateCity
                                 open={this.state.createModalOpen}
                                 closeModal={this.closeCreateModal}
                                 addCity={this.addCity}
@@ -177,7 +178,7 @@ class CitiesContainer extends Component {
                                 cityToEdit={this.state.cityToEdit}
                                 closeModal={this.closeEditModal}
                                 handleEditChange={this.handleEditChange}
-                            />
+                            /> */}
                             </Grid.Row>
                         </Grid>
                         :

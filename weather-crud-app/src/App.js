@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
+
 import './App.css';
+import CitiesContainer from './CitiesContainer'
+import Footer from './components/Footer'
+// import Header from './components/Header'
+import LoginRegisterForm from './LoginRegisterForm'
 
-import Footer from '.components/layout.Footer'
-import Navbar from '.components/layout.Navbar'
 
-function App() {
+const My404 = () => {
   return (
-    <div>
-      You are Lost
-    </div>
-  )
+      <div>
+        You found Sam's Apartment.
+      </div>
+    )
 };
+
 class App extends Component {
   constructor(){
     super()
@@ -51,9 +56,12 @@ class App extends Component {
   render (){
     return(
     <main>
-      
-      <Route exact path="/" render={(props) =>  <LoginRegisterForm {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} /> } />
-      <Route component={ My404 } />
+      <BrowserRouter>
+      <Switch>
+          <Route exact path="/" render={(props) =>  <LoginRegisterForm {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} /> } />
+          <Route component={ My404 } />
+        </Switch>
+      </BrowserRouter>
     </main>
     )
   }

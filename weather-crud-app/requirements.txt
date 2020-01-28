@@ -1,0 +1,6 @@
+flask 
+flask-bcrypt 
+flask_login 
+flask_cors 
+peewee 
+psycopg2
