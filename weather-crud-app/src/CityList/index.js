@@ -8,7 +8,7 @@ function CityList(props) {
 
     const citiesList = cities && cities.map((city) => {
         return (
-            <CityCard city={city} />
+            <CityCard city={city} deleteCity={props.deleteCity}/>
         )
     })
 

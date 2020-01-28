@@ -8,7 +8,7 @@ import { openWeatherApiKey } from '../keys/keys'
 
 class CityContainer extends Component {
     state = {
-        cities: ['Denver', 'Chicago'],
+        cities: [],
         createModalOpen: false,
         editModalOpen: false,
         cityToEdit: {
@@ -44,6 +44,7 @@ class CityContainer extends Component {
             })
 
             this.closeCreateModal()
+
         } catch (err) {
             console.log('error: ', err)
         }
@@ -143,6 +144,7 @@ class CityContainer extends Component {
     }
 
     deleteCity = async (id) => {
+        console.log(id)
         const deleteCityResponse = await fetch(`http://localhost:8000/api/v1/cities/${id}`, {
             method: 'DELETE',
             credentials: 'include'

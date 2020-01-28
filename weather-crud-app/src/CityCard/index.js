@@ -12,10 +12,10 @@ class CityCard extends Component {
     getWeather = async (city) => {
         try {
             // const weather = await fetch(`api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${openWeatherApiKey}`)
-            const weather = await fetch(`api.openweathermap.org/data/2.5/weather?q=Denver&APPID=4508de08d69248f8cb43784c358ac579`)
+            const weather = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=4508de08d69248f8cb43784c358ac579&units=metric`)
             const weatherJson = await weather.json();
 
-            console.log(weatherJson)
+
             this.setState({
                 weather: weatherJson
             })
@@ -25,11 +25,13 @@ class CityCard extends Component {
     }
 
     componentDidMount() {
-        this.getWeather()
+        console.log(this.props)
+        this.getWeather(this.props.city.name)
         console.log('test')
     }
 
     render() {
+        
         return (
             // <Card key={city.id}>
             //     <Card.Content>
@@ -42,12 +44,12 @@ class CityCard extends Component {
             // </Card>
             <Card key={'1'}>
             <Card.Content>
-                <Card.Header>name goes here</Card.Header>
+                <Card.Header>{this.state.weather.name}</Card.Header>
             </Card.Content>
             <Card.Content extra>
-                {/* <Button onClick={() => props.deleteCity(city.id)}>Delete City</Button>
-                <Button onClick={() => props.editCity(city.id)}>Edit City</Button> */}
-                buttons go here
+                <Button onClick={() => this.props.deleteCity(this.props.city.id)}>Delete City</Button>
+                {/* <Button onClick={() => props.editCity(city.id)}>Edit City</Button> */}
+            
             </Card.Content>
         </Card>
         )
