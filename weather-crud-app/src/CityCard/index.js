@@ -6,16 +6,16 @@ import { openWeatherApiKey } from '../keys/keys'
 class CityCard extends Component {
 
     state = {
-        weather: {}
+        weather: false
     }
 
     getWeather = async (city) => {
         try {
             // const weather = await fetch(`api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${openWeatherApiKey}`)
-            const weather = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=4508de08d69248f8cb43784c358ac579&units=metric`)
+            const weather = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=4508de08d69248f8cb43784c358ac579&units=imperial`)
             const weatherJson = await weather.json();
 
-
+            console.log(weatherJson)
             this.setState({
                 weather: weatherJson
             })
@@ -31,6 +31,7 @@ class CityCard extends Component {
     }
 
     render() {
+        const { weather } = this.state
         
         return (
             // <Card key={city.id}>
@@ -44,7 +45,13 @@ class CityCard extends Component {
             // </Card>
             <Card key={'1'}>
             <Card.Content>
-                <Card.Header>{this.state.weather.name}</Card.Header>
+                <Card.Header>{weather.name}</Card.Header>
+            </Card.Content>
+            <Card.Content>
+                <Card.Description>{weather && weather.weather[0].description}</Card.Description>
+            </Card.Content>
+            <Card.Content>
+                <Card.Description>{weather && weather.main.temp}</Card.Description>
             </Card.Content>
             <Card.Content extra>
                 <Button onClick={() => this.props.deleteCity(this.props.city.id)}>Delete City</Button>
