@@ -23,10 +23,10 @@ class CreateCity extends Component {
 
     render() {
         return(
-            <Modal open={this.props.oepn} closeIcon onClose={this.props.closeModal}>
+            <Modal open={this.props.open} closeIcon onClose={this.props.closeModal}>
                 <Header>Create City</Header>
                 <Modal.Content>
-                    <Form size='large' onSubmit={(e) => this.props.AddCity(e, this.state)}>
+                    <Form size='large' onSubmit={(e) => this.props.addCity(e, this.state)}>
                         <Form.Field>
                             <label>City Name</label>
                             <Form.Input type="text" name="name" value={this.state.name} onChange={this.handleChange}/>

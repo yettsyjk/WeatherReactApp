@@ -10,7 +10,7 @@ class HeaderComponent extends Component {
     render() {
         return (
             <Header>
-                <Menu fixed='top' inverted>
+                <Menu fixed='top'>
                     <Container>
                         <Menu.Item><Link to='/'>Home</Link></Menu.Item>
                         <Menu.Item><Link to='/cities'>Cities</Link></Menu.Item>
