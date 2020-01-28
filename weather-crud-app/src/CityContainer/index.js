@@ -4,15 +4,18 @@ import CityList from '../CityList';
 import EditCityModal from '../EditCityModal';
 import { Grid, Button } from 'semantic-ui-react';
 
+import { openWeatherApiKey } from '../keys/keys'
+
 class CityContainer extends Component {
     state = {
-        cities: [],
+        cities: ['Denver', 'Chicago'],
         createModalOpen: false,
         editModalOpen: false,
         cityToEdit: {
             name: '',
             id: '',
-        }
+        },
+        weather: []
     }
 
     createCity = () => {
@@ -25,7 +28,7 @@ class CityContainer extends Component {
         e.preventDefault();
 
         try {
-            const createdCityResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/`, {
+            const createdCityResponse = await fetch(`http://localhost:8000/api/v1/cities/`, {
                 method: 'POST',
                 body: JSON.stringify(cityFromTheForm),
                 headers: {
@@ -49,18 +52,19 @@ class CityContainer extends Component {
     closeCreateModal = () => {
         this.setState({
             createModalOpen: false
-        }, () => {
-            this.createCityFormRef.current.clearForm();
         })
     }
 
     componentDidMount() {
         this.getCities();
+        // this.getWeather();
     }
+
+
 
     getCities = async () => {
         try {
-            const cities = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/`, { credentials: 'include' });
+            const cities = await fetch(`http://localhost:8000/api/v1/cities/`, { credentials: 'include' });
             const parsedCities = await cities.json();
 
             this.setState({
@@ -90,11 +94,24 @@ class CityContainer extends Component {
         })
     }
 
+    // getWeather = async (city) => {
+    //     try {
+    //         const weather = await fetch(`api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${openWeatherApiKey}`)
+    //         const weatherJson = await weather.json();
+
+    //         this.setState({
+    //             weather: weatherJson
+    //         })
+    //     } catch (err) {
+    //         return err
+    //     }
+    // }
+
     updateCity = async (e) => {
         e.preventDefault()
 
-        try{
-            const updateResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/${this.state.cityToEdit.id}`, {
+        try {
+            const updateResponse = await fetch(`http://localhost:8000/api/v1/cities/${this.state.cityToEdit.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(this.state.cityToEdit),
                 headers: {
@@ -114,7 +131,7 @@ class CityContainer extends Component {
                 cities: newCityArrayWithUpdate
             })
             this.closeEditModal()
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -126,7 +143,7 @@ class CityContainer extends Component {
     }
 
     deleteCity = async (id) => {
-        const deleteCityResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/${id}`, {
+        const deleteCityResponse = await fetch(`http://localhost:8000/api/v1/cities/${id}`, {
             method: 'DELETE',
             credentials: 'include'
         });
@@ -137,52 +154,54 @@ class CityContainer extends Component {
         })
     }
 
+
     render() {
         const { loggedIn } = this.props
+        console.log(openWeatherApiKey)
         return (
             <div>
-                { loggedIn
-                        ?
-                        <Grid
-                            textAlign='center'
-                            style={{ marginTop: '7em', height: '100%' }}
-                            verticalAlign='top'
-                            stackable
-                        >
-                            <Grid.Row>
-                                <Button onClick={this.createCity}>Create New City</Button>
-                            </Grid.Row>
-                            <Grid.Row>
-                                <Grid.Column>
-                                    <CityList
-                                        cities={this.state.cities}
-                                        deleteCity={this.deleteCity}
-                                        editCity={this.editCity}
-                                    />
-                                </Grid.Column>
-                                <CreateCity
-                                    open={this.state.createModalOpen}
-                                    closeModal={this.closeCreateModal}
-                                    addCity={this.addCity}
-                                    ref={this.createCityFormRef}
+                {loggedIn
+                    ?
+                    <Grid
+                        textAlign='center'
+                        style={{ marginTop: '7em', height: '100%' }}
+                        verticalAlign='top'
+                        stackable
+                    >
+                        <Grid.Row>
+                            <Button onClick={this.createCity}>Create New City</Button>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <CityList
+                                    cities={this.state.cities}
+                                    deleteCity={this.deleteCity}
+                                    editCity={this.editCity}
                                 />
-                                <EditCityModal
-                                    open={this.state.editModalOpen}
-                                    updateCity={this.updateCity}
-                                    cityToEdit={this.state.cityToEdit}
-                                    closeModal={this.closeEditModal}
-                                    handleEditChange={this.handleEditChange}
-                                />
-                            </Grid.Row>
-                        </Grid>
-                        :
-                        <Grid
-                            textAlign='center'
-                            style={{ marginTop: '7em', height: '100%' }}
-                            verticalAlign='top'
-                            stackable
-                        >
-                            You must be logged in.
+                            </Grid.Column>
+                            <CreateCity
+                                open={this.state.createModalOpen}
+                                closeModal={this.closeCreateModal}
+                                addCity={this.addCity}
+                                ref={this.createCityFormRef}
+                            />
+                            <EditCityModal
+                                open={this.state.editModalOpen}
+                                updateCity={this.updateCity}
+                                cityToEdit={this.state.cityToEdit}
+                                closeModal={this.closeEditModal}
+                                handleEditChange={this.handleEditChange}
+                            />
+                        </Grid.Row>
+                    </Grid>
+                    :
+                    <Grid
+                        textAlign='center'
+                        style={{ marginTop: '7em', height: '100%' }}
+                        verticalAlign='top'
+                        stackable
+                    >
+                        You must be logged in.
                 </Grid>
                 }
             </div>
