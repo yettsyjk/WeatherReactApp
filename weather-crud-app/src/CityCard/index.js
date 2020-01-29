@@ -11,8 +11,7 @@ class CityCard extends Component {
 
     getWeather = async (city) => {
         try {
-            // const weather = await fetch(`api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${openWeatherApiKey}`)
-            const weather = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=4508de08d69248f8cb43784c358ac579&units=imperial`)
+            const weather = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${openWeatherApiKey}&units=imperial`)
             const weatherJson = await weather.json();
 
             console.log(weatherJson)
@@ -43,7 +42,7 @@ class CityCard extends Component {
             //         <Button onClick={() => props.editCity(city.id)}>Edit City</Button>
             //     </Card.Content>
             // </Card>
-            <Card key={'1'}>
+            <Card key={this.props.city.id}>
             <Card.Content>
                 <Card.Header>{weather.name}</Card.Header>
             </Card.Content>

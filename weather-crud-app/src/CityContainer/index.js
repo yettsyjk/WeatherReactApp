@@ -133,6 +133,7 @@ class CityContainer extends Component {
             })
             this.closeEditModal()
             this.props.history.push('/')
+            this.props.history.push('/cities')
         } catch (err) {
             console.log(err)
         }
@@ -151,13 +152,14 @@ class CityContainer extends Component {
             credentials: 'include'
         }).then(()=>{
             this.props.history.push('/')
+            this.props.history.push('/cities')
+            
         })  
     }
 
 
     render() {
         const { loggedIn } = this.props
-        // console.log(openWeatherApiKey)
         return (
             <div>
                 {loggedIn
