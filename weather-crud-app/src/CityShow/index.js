@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Grid, Button } from 'semantic-ui-react';
 
 import { openWeatherApiKey } from '../keys/keys'
 
@@ -8,30 +9,31 @@ class CityShow extends Component {
         weather: false
     }
 
-    // getWeather = async (city) => {
-    //     try {
-    //         const weather = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${openWeatherApiKey}&units=imperial`)
-    //         const weatherJson = await weather.json();
+    getWeather = async (city) => {
+        try {
+            const weather = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${openWeatherApiKey}&units=imperial`)
+            const weatherJson = await weather.json();
 
-    //         console.log(weatherJson)
-    //         this.setState({
-    //             weather: weatherJson
-    //         })
-    //     } catch (err) {
-    //         return err
-    //     }
-    // }
+            console.log(weatherJson)
+            this.setState({
+                weather: weatherJson
+            })
+        } catch (err) {
+            return err
+        }
+    }
 
-    // componentDidMount() {
-    //     console.log(this.props)
-    //     this.getWeather(this.props.city.name)
-      
-    // }
+    componentDidMount() {
+        const { cityName } = this.props.match.params
+        this.getWeather(cityName)
+
+    }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props.match.params.cityName)
         const { weather } = this.state
-        
+        const { cityName } = this.props.match.params
+
         return (
 
             // <Card key={this.props.city.id}>
@@ -50,9 +52,16 @@ class CityShow extends Component {
             //     </Card.Content>
             // </Card>
 
-            <div>
-                <h1> TEsTS </h1>
-            </div>
+            <Grid
+                textAlign='center'
+                style={{ marginTop: '7em', height: '100%' }}
+                verticalAlign='top'
+                stackable
+            >
+                <Grid.Row>
+                    <Box>{cityName}</Box>
+                </Grid.Row>
+            </Grid>
         )
     }
 }

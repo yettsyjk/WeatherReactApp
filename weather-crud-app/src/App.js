@@ -56,7 +56,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" render={(props) => <LoginRegisterForm {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} />} />
           <Route exact path="/cities" render={(props) => <CityContainer {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} />} />
-          <Route exact path="/cities/:cityId" render={(props) => <CityShow {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} />} />
+          <Route exact path="/cities/:cityName" render={(props) => <CityShow {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} />} />
           <Route component={My404} />
         </Switch>
       </main>

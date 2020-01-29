@@ -15,7 +15,7 @@ function CityList(props) {
                 match={props.match}
                 deleteCity={props.deleteCity}
                 editCity={props.editCity}
-                handleShow={props.handleShow}
+                // handleShow={props.handleShow}
             />
         )
     })

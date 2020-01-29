@@ -23,6 +23,11 @@ class CityCard extends Component {
         }
     }
 
+    handleShow = () => {
+        const { name } = this.props.city
+        this.props.history.push(`/cities/${name}`)
+    }
+
     componentDidMount() {
         console.log(this.props)
         this.getWeather(this.props.city.name)
@@ -31,20 +36,19 @@ class CityCard extends Component {
 
 
     render() {
-        console.log(this.props)
         const { weather } = this.state
         
         return (
 
             <Card key={this.props.city.id} >
                 <Card.Content>
-                    <Card.Header onClick={this.props.handleShow}>{weather.name}</Card.Header>
+                    <Card.Header onClick={this.handleShow}>{weather.name}</Card.Header>
                 </Card.Content>
                 <Card.Content>
-                    {/* <Card.Description>{weather && weather.weather[0].description}</Card.Description> */}
+                    <Card.Description>{weather && weather.weather[0].description}</Card.Description>
                 </Card.Content>
                 <Card.Content>
-                    {/* <Card.Description>{weather && weather.main.temp}</Card.Description> */}
+                    <Card.Description>{weather && weather.main.temp}</Card.Description>
                 </Card.Content>
                 <Card.Content extra>
                     <Button onClick={() => this.props.deleteCity(this.props.city.id)}>Delete City</Button>

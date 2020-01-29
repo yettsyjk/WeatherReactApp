@@ -60,11 +60,11 @@ class CityContainer extends Component {
         // this.getWeather();
     }
 
-    handleShow = () => {
-        this.props.history.push(`/cities/${this.state.cities.name}`)
-        console.log(this.state.cities)
+    // handleShow = () => {
+    //     this.props.history.push(`/cities/${this.state.cities.name}`)
+    //     console.log(this.state.cities)
 
-    }
+    // }
 
 
 
@@ -183,7 +183,7 @@ class CityContainer extends Component {
                                     cities={this.state.cities}
                                     deleteCity={this.deleteCity}
                                     editCity={this.editCity}
-                                    handleShow={this.handleShow}
+                                    // handleShow={this.handleShow}
                                 />
                             </Grid.Column>
                             <CreateCity
