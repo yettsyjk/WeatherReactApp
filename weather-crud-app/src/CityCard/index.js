@@ -55,7 +55,7 @@ class CityCard extends Component {
             </Card.Content>
             <Card.Content extra>
                 <Button onClick={() => this.props.deleteCity(this.props.city.id)}>Delete City</Button>
-                {/* <Button onClick={() => props.editCity(city.id)}>Edit City</Button> */}
+                <Button onClick={() => this.props.editCity(this.props.city.id)}>Edit City</Button>
             
             </Card.Content>
         </Card>

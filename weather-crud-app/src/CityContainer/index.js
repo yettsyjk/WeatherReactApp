@@ -132,6 +132,7 @@ class CityContainer extends Component {
                 cities: newCityArrayWithUpdate
             })
             this.closeEditModal()
+            this.props.history.push('/')
         } catch (err) {
             console.log(err)
         }
@@ -148,18 +149,15 @@ class CityContainer extends Component {
         const deleteCityResponse = await fetch(`http://localhost:8000/api/v1/cities/${id}`, {
             method: 'DELETE',
             credentials: 'include'
-        });
-
-        const deleteCityParsed = await deleteCityResponse.json();
-        this.setState({
-            cities: this.state.cities.filter((city) => city.id !== id)
-        })
+        }).then(()=>{
+            this.props.history.push('/')
+        })  
     }
 
 
     render() {
         const { loggedIn } = this.props
-        console.log(openWeatherApiKey)
+        // console.log(openWeatherApiKey)
         return (
             <div>
                 {loggedIn
