@@ -1,81 +1,81 @@
 import React, { Component } from 'react';
+import CreateCity from '../CreateCityForm';
+import CityList from '../CityList';
+import EditCityModal from '../EditCityModal';
 import { Grid, Button } from 'semantic-ui-react';
 
+import { openWeatherApiKey } from '../keys/keys'
 
-
-import CreateCity from '';
-import CityList from '';
-import EditCityModal from '';
-
-
-class CitiesContainer extends Component {
+class CityContainer extends Component {
     state = {
         cities: [],
         createModalOpen: false,
         editModalOpen: false,
         cityToEdit: {
             name: '',
-            weather: '',
-            forecast: ''
-        }
+            id: '',
+        },
+        weather: []
     }
-//create a City 
+
     createCity = () => {
         this.setState({
             createModalOpen: true
         })
     }
-//addCity fetch request requires an async function to reduce timeout
+
     addCity = async (e, cityFromTheForm) => {
-        //prevent default prevents browser from refreshing every time
         e.preventDefault();
-//try catch 
-        try{
-            const createdCityResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/`, {
+
+        try {
+            const createdCityResponse = await fetch(`http://localhost:8000/api/v1/cities/`, {
                 method: 'POST',
                 body: JSON.stringify(cityFromTheForm),
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 credentials: 'include'
-        });
-        const parsedResponse = await createdCityResponse.json();
+            });
 
-        this.setState({
-            cities: [...this.state.cities, parsedResponse.data]
-        })
-        this.closeCreateModal()
-    } catch (err) {
-        console.log('error: ', err)
+            const parsedResponse = await createdCityResponse.json();
+
+            this.setState({
+                cities: [...this.state.cities, parsedResponse.data]
+            })
+
+            this.closeCreateModal()
+
+        } catch (err) {
+            console.log('error: ', err)
         }
     }
 
     closeCreateModal = () => {
         this.setState({
             createModalOpen: false
-        }, () => {
-            this.createCityFormRef.current.clearForm();
         })
     }
 
     componentDidMount() {
         this.getCities();
+        // this.getWeather();
     }
 
+
+
     getCities = async () => {
-        try{
-            const cities = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/`, { credentials: 'include' });
+        try {
+            const cities = await fetch(`http://localhost:8000/api/v1/cities/`, { credentials: 'include' });
             const parsedCities = await cities.json();
 
             this.setState({
                 cities: parsedCities.data
             })
-
-        }catch (err){
+        } catch (err) {
             console.log(err);
         }
     }
-    //editCity
+
     editCity = (idOfCityToEdit) => {
         const cityToEdit = this.state.cities.find(city => city.id === idOfCityToEdit)
         this.setState({
@@ -84,23 +84,35 @@ class CitiesContainer extends Component {
                 ...cityToEdit
             }
         })
-    } 
+    }
 
-    //handleEditChange
-    handleEditChange = (event) => {
+    handleEditChange = (e) => {
         this.setState({
             cityToEdit: {
                 ...this.state.cityToEdit,
-                [event.target.name]: event.target.value
+                [e.target.name]: e.target.value
             }
         })
     }
-    //update City
+
+    // getWeather = async (city) => {
+    //     try {
+    //         const weather = await fetch(`api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${openWeatherApiKey}`)
+    //         const weatherJson = await weather.json();
+
+    //         this.setState({
+    //             weather: weatherJson
+    //         })
+    //     } catch (err) {
+    //         return err
+    //     }
+    // }
+
     updateCity = async (e) => {
         e.preventDefault()
 
-        try{
-            const updateResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/${this.state.cityToEdit.id}`, {
+        try {
+            const updateResponse = await fetch(`http://localhost:8000/api/v1/cities/${this.state.cityToEdit.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(this.state.cityToEdit),
                 headers: {
@@ -111,20 +123,18 @@ class CitiesContainer extends Component {
             const updateResponseParsed = await updateResponse.json()
 
             const newCityArrayWithUpdate = this.state.cities.map((city) => {
-                if(city.id === updateResponseParsed.data.id) {
+                if (city.id === updateResponseParsed.data.id) {
                     city = updateResponseParsed.data
                 }
                 return city
             })
-
             this.setState({
                 cities: newCityArrayWithUpdate
             })
-
             this.closeEditModal()
-
-        }catch (err){
-            console.log(err);
+            this.props.history.push('/')
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -135,31 +145,35 @@ class CitiesContainer extends Component {
     }
 
     deleteCity = async (id) => {
-        const deleteCityResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/${id}`, {
+        console.log(id)
+        const deleteCityResponse = await fetch(`http://localhost:8000/api/v1/cities/${id}`, {
             method: 'DELETE',
             credentials: 'include'
-    });
-
-        const deleteCityParsed = await deleteCityResponse.json();
-
-        this.setState({
-            cities: this.state.city.filter((city) => city.id !== id)
-        })
+        }).then(()=>{
+            this.props.history.push('/')
+        })  
     }
 
-//GRID requires styling 
+
     render() {
-        const { loggedIn } = this.props 
+        const { loggedIn } = this.props
+        // console.log(openWeatherApiKey)
         return (
             <div>
-                { loggedIn ?
-                    <Grid>
+                {loggedIn
+                    ?
+                    <Grid
+                        textAlign='center'
+                        style={{ marginTop: '7em', height: '100%' }}
+                        verticalAlign='top'
+                        stackable
+                    >
                         <Grid.Row>
                             <Button onClick={this.createCity}>Create New City</Button>
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column>
-                                <CitiesList
+                                <CityList
                                     cities={this.state.cities}
                                     deleteCity={this.deleteCity}
                                     editCity={this.editCity}
@@ -178,14 +192,21 @@ class CitiesContainer extends Component {
                                 closeModal={this.closeEditModal}
                                 handleEditChange={this.handleEditChange}
                             />
-                            </Grid.Row>
-                        </Grid>
-                        :
-                        <Grid>You must be logged in to see the Cities.</Grid>
+                        </Grid.Row>
+                    </Grid>
+                    :
+                    <Grid
+                        textAlign='center'
+                        style={{ marginTop: '7em', height: '100%' }}
+                        verticalAlign='top'
+                        stackable
+                    >
+                        You must be logged in.
+                </Grid>
                 }
             </div>
         )
     }
 }
 
-export default CitiesContainer;
+export default CityContainer

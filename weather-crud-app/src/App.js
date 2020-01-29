@@ -1,10 +1,10 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react';
+import LoginRegisterForm from './LoginRegisterForm';
+import CityContainer from './CityContainer';
+import Header from './Header';
+import { Route, Switch } from 'react-router-dom';
 
-import Footer from '.components/layout.Footer'
-import Navbar from '.components/layout.Navbar'
-
-function App() {
+const My404 =() => {
   return (
     <div>
       You are Lost
@@ -15,7 +15,7 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
       loggedInUserEmail: null
     }
   }
@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   logout = async () => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/users/logout`, {
+    const response = await fetch(`http://localhost:8000/api/v1/users/logout`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -50,11 +50,14 @@ class App extends Component {
 
   render (){
     return(
-    <main>
-      
-      <Route exact path="/" render={(props) =>  <LoginRegisterForm {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} /> } />
-      <Route component={ My404 } />
-    </main>
+      <main>
+        <Header loggedIn={this.state.loggedIn} loggedInUserEmail={this.state.loggedInUserEmail} logout={this.logout} />
+        <Switch>
+          <Route exact path="/" render={(props) =>  <LoginRegisterForm {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} /> } />
+          <Route exact path="/cities" render={(props) =>  <CityContainer {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus}  /> } />
+          <Route component={ My404 } />
+        </Switch>
+      </main>
     )
   }
 }
