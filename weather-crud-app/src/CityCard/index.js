@@ -26,23 +26,25 @@ class CityCard extends Component {
     componentDidMount() {
         console.log(this.props)
         this.getWeather(this.props.city.name)
-        console.log('test')
     }
 
+
+
     render() {
+        console.log(this.props)
         const { weather } = this.state
         
         return (
 
-            <Card key={this.props.city.id}>
+            <Card key={this.props.city.id} >
                 <Card.Content>
-                    <Card.Header>{weather.name}</Card.Header>
+                    <Card.Header onClick={this.props.handleShow}>{weather.name}</Card.Header>
                 </Card.Content>
                 <Card.Content>
-                    <Card.Description>{weather && weather.weather[0].description}</Card.Description>
+                    {/* <Card.Description>{weather && weather.weather[0].description}</Card.Description> */}
                 </Card.Content>
                 <Card.Content>
-                    <Card.Description>{weather && weather.main.temp}</Card.Description>
+                    {/* <Card.Description>{weather && weather.main.temp}</Card.Description> */}
                 </Card.Content>
                 <Card.Content extra>
                     <Button onClick={() => this.props.deleteCity(this.props.city.id)}>Delete City</Button>

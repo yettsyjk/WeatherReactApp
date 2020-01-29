@@ -60,6 +60,12 @@ class CityContainer extends Component {
         // this.getWeather();
     }
 
+    handleShow = () => {
+        this.props.history.push(`/cities/${this.state.cities.name}`)
+        console.log(this.state.cities)
+
+    }
+
 
 
     getCities = async () => {
@@ -120,8 +126,8 @@ class CityContainer extends Component {
                 cities: newCityArrayWithUpdate
             })
             this.closeEditModal()
-            this.props.history.push('/')
-            this.props.history.push('/cities')
+            // this.props.history.push('/')
+            // this.props.history.push('/cities')
         } catch (err) {
             console.log(err)
         }
@@ -138,11 +144,18 @@ class CityContainer extends Component {
         const deleteCityResponse = await fetch(`http://localhost:8000/api/v1/cities/${id}`, {
             method: 'DELETE',
             credentials: 'include'
-        }).then(()=>{
+        }).then(() => {
             this.props.history.push('/')
             this.props.history.push('/cities')
-            
-        })  
+            // const newCityArray = this.state.cities.filter((city) => {
+            //     if (city.id !== id) {
+            //         return city
+            //     }
+            // })
+            // this.setState({
+            //     cities: newCityArray
+            // })
+        })
     }
 
 
@@ -164,9 +177,13 @@ class CityContainer extends Component {
                         <Grid.Row>
                             <Grid.Column>
                                 <CityList
+                                    history={this.props.history}
+                                    location={this.props.location}
+                                    match={this.props.match}
                                     cities={this.state.cities}
                                     deleteCity={this.deleteCity}
                                     editCity={this.editCity}
+                                    handleShow={this.handleShow}
                                 />
                             </Grid.Column>
                             <CreateCity

@@ -8,7 +8,15 @@ function CityList(props) {
 
     const citiesList = cities && cities.map((city) => {
         return (
-            <CityCard city={city} deleteCity={props.deleteCity} editCity={props.editCity}/>
+            <CityCard
+                city={city}
+                history={props.history}
+                location={props.location}
+                match={props.match}
+                deleteCity={props.deleteCity}
+                editCity={props.editCity}
+                handleShow={props.handleShow}
+            />
         )
     })
 

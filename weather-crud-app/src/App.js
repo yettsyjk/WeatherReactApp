@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import LoginRegisterForm from './LoginRegisterForm';
 import CityContainer from './CityContainer';
 import Header from './Header';
+import CityShow from './CityShow';
 import { Route, Switch } from 'react-router-dom';
 
-const My404 =() => {
+const My404 = () => {
   return (
     <div>
       You are Lost
@@ -12,7 +13,7 @@ const My404 =() => {
   )
 };
 class App extends Component {
-  constructor(){
+  constructor() {
     super()
     this.state = {
       loggedIn: true,
@@ -34,28 +35,29 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json'
       }
-  })
-   
-  const parsedLogoutResponse = await response.json();
-
-  if(parsedLogoutResponse.status.code === 200){
-    this.setState({
-      loggedIn: false,
-      loggedInUserEmail: ''
     })
-  } else {
-    console.log('Register Failed: ', parsedLogoutResponse);
-  }
+
+    const parsedLogoutResponse = await response.json();
+
+    if (parsedLogoutResponse.status.code === 200) {
+      this.setState({
+        loggedIn: false,
+        loggedInUserEmail: ''
+      })
+    } else {
+      console.log('Register Failed: ', parsedLogoutResponse);
+    }
   }
 
-  render (){
-    return(
+  render() {
+    return (
       <main>
         <Header loggedIn={this.state.loggedIn} loggedInUserEmail={this.state.loggedInUserEmail} logout={this.logout} />
         <Switch>
-          <Route exact path="/" render={(props) =>  <LoginRegisterForm {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} /> } />
-          <Route exact path="/cities" render={(props) =>  <CityContainer {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus}  /> } />
-          <Route component={ My404 } />
+          <Route exact path="/" render={(props) => <LoginRegisterForm {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} />} />
+          <Route exact path="/cities" render={(props) => <CityContainer {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} />} />
+          <Route exact path="/cities/:cityId" render={(props) => <CityShow {...props} loggedIn={this.state.loggedIn} loggedStatus={this.handleLoggedInStatus} />} />
+          <Route component={My404} />
         </Switch>
       </main>
     )
