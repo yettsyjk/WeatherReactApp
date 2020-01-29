@@ -33,31 +33,22 @@ class CityCard extends Component {
         const { weather } = this.state
         
         return (
-            // <Card key={city.id}>
-            //     <Card.Content>
-            //         <Card.Header>{city.name}</Card.Header>
-            //     </Card.Content>
-            //     <Card.Content extra>
-            //         <Button onClick={() => props.deleteCity(city.id)}>Delete City</Button>
-            //         <Button onClick={() => props.editCity(city.id)}>Edit City</Button>
-            //     </Card.Content>
-            // </Card>
+
             <Card key={this.props.city.id}>
-            <Card.Content>
-                <Card.Header>{weather.name}</Card.Header>
-            </Card.Content>
-            <Card.Content>
-                <Card.Description>{weather && weather.weather[0].description}</Card.Description>
-            </Card.Content>
-            <Card.Content>
-                <Card.Description>{weather && weather.main.temp}</Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-                <Button onClick={() => this.props.deleteCity(this.props.city.id)}>Delete City</Button>
-                <Button onClick={() => this.props.editCity(this.props.city.id)}>Edit City</Button>
-            
-            </Card.Content>
-        </Card>
+                <Card.Content>
+                    <Card.Header>{weather.name}</Card.Header>
+                </Card.Content>
+                <Card.Content>
+                    <Card.Description>{weather && weather.weather[0].description}</Card.Description>
+                </Card.Content>
+                <Card.Content>
+                    <Card.Description>{weather && weather.main.temp}</Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                    <Button onClick={() => this.props.deleteCity(this.props.city.id)}>Delete City</Button>
+                    <Button onClick={() => this.props.editCity(this.props.city.id)}>Edit City</Button>
+                </Card.Content>
+            </Card>
         )
     }
 }

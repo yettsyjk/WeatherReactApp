@@ -4,7 +4,6 @@ import CityList from '../CityList';
 import EditCityModal from '../EditCityModal';
 import { Grid, Button } from 'semantic-ui-react';
 
-import { openWeatherApiKey } from '../keys/keys'
 
 class CityContainer extends Component {
     state = {
@@ -95,18 +94,7 @@ class CityContainer extends Component {
         })
     }
 
-    // getWeather = async (city) => {
-    //     try {
-    //         const weather = await fetch(`api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${openWeatherApiKey}`)
-    //         const weatherJson = await weather.json();
 
-    //         this.setState({
-    //             weather: weatherJson
-    //         })
-    //     } catch (err) {
-    //         return err
-    //     }
-    // }
 
     updateCity = async (e) => {
         e.preventDefault()
