@@ -39,15 +39,56 @@
   }
 }
 
-.card-box-shadow{ 
-  box-shadow: 0px 10px 10px 3px lightblue !important;
+.shadow-color-hot{ 
+  box-shadow: 0px 5px 5px 3px orangered !important;
   border-radius: .3em !important; 
   border-bottom: 2px double rgba(0, 0, 0, 0.301)  !important;
   border-right: 2px double rgba(0, 0, 0, 0.301)  !important;
-  /* border: 1px red solid; */
+  
 }
+
+.shadow-color-warm{ 
+  box-shadow: 0px 5px 5px 3px orange !important;
+  border-radius: .3em !important; 
+  border-bottom: 2px double rgba(0, 0, 0, 0.301)  !important;
+  border-right: 2px double rgba(0, 0, 0, 0.301)  !important;
+  
+}
+
+.shadow-color-cold{ 
+  box-shadow: 0px 5px 5px 3px lightblue !important;
+  border-radius: .3em !important; 
+  border-bottom: 2px double rgba(0, 0, 0, 0.301)  !important;
+  border-right: 2px double rgba(0, 0, 0, 0.301)  !important;
+  
+}
+
+.shadow-color-coldAf{ 
+  box-shadow: 0px 5px 5px 3px cornflowerblue !important;
+  border-radius: .3em !important; 
+  border-bottom: 2px double rgba(0, 0, 0, 0.301)  !important;
+  border-right: 2px double rgba(0, 0, 0, 0.301)  !important;
+  
+}
+
 
 .list {
   display: flex;
   align-content: center;
+}
+
+.hot {
+  background-color: orangered;
+}
+
+.warm {
+  background-color: orange;
+}
+
+.cold {
+  background-color: lightblue;
+}
+
+.coldAf {
+  background-color: cornflowerblue;
 }

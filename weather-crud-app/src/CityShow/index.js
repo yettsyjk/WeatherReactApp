@@ -64,6 +64,7 @@ class CityShow extends Component {
                     <Segment>Weather Conditions: {weather && weather.weather[0].description}</Segment>
                     <Segment>Current Temperature: {weather && weather.main.temp}</Segment>
                     <Segment>Low Temp : {weather && weather.main.temp_min} F</Segment>
+                    <Segment>High Temp: {weather && weather.main.temp_max} F</Segment>
                     </Grid.Column>
                 </Grid.Row>
 

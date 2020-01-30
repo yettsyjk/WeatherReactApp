@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CreateCity from '../CreateCityForm';
 import CityList from '../CityList';
 import EditCityModal from '../EditCityModal';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid, Button, Header } from 'semantic-ui-react';
 
 
 class CityContainer extends Component {
@@ -171,6 +171,9 @@ class CityContainer extends Component {
                         verticalAlign='top'
                         stackable
                     >
+                        <Grid.Row>
+                            <Header size='huge'>Nop-lr Weather App</Header>
+                        </Grid.Row>
                         <Grid.Row>
                             <Button onClick={this.createCity}>Create New City</Button>
                         </Grid.Row>
