@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 
 import { openWeatherApiKey } from '../keys/keys'
 
@@ -58,10 +58,19 @@ class CityShow extends Component {
                 verticalAlign='top'
                 stackable
             >
+                <Header size="huge">{cityName}</Header>
                 <Grid.Row>
-                    {cityName}
+                    <Grid.Column>
+                    <Segment>Weather Conditions: {weather && weather.weather[0].description}</Segment>
+                    <Segment>Current Temperature: {weather && weather.main.temp}</Segment>
+                    <Segment>Low Temp : {weather && weather.main.temp_min} F</Segment>
+                    </Grid.Column>
                 </Grid.Row>
+
+
             </Grid>
+                    
+            
         )
     }
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'semantic-ui-react';
-import '../CSS/App.css'
 
 import { openWeatherApiKey } from '../keys/keys'
 
@@ -41,7 +40,7 @@ class CityCard extends Component {
         
         return (
 
-            <Card className="card" key={this.props.city.id} >
+            <Card  className="card-box-shadow" key={this.props.city.id} >
                 <Card.Content>
                     <Card.Header onClick={this.handleShow}>{weather.name}</Card.Header>
                 </Card.Content>
@@ -51,8 +50,16 @@ class CityCard extends Component {
                     <Card.Description>{weather && weather.weather[0].description}</Card.Description>
                 </Card.Content>
                 <Card.Content>
-                    <Card.Description>{weather && weather.main.temp}</Card.Description>
+                    <Card.Description>Current Temp: {weather && weather.main.temp}</Card.Description>
                 </Card.Content>
+                <Card.Content>
+                <Card.Description>Low Temp : {weather && weather.main.temp_min} F </Card.Description>
+                </Card.Content>
+                <Card.Content>
+                    <Card.Description> High Temp: {weather && weather.main.temp_max} F</Card.Description>
+                </Card.Content>
+           
+    
                 </React.Fragment>
                 : 
                 <Card.Content>
