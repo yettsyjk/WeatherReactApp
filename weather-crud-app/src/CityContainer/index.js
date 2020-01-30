@@ -172,8 +172,9 @@ class CityContainer extends Component {
                         stackable
                     >
                         <Grid.Row>
-                            <Header size='huge'>Nop-lr Weather App</Header>
+                            <Header className="weatherTitle" size='huge'>Carpe Diem Weather App</Header>
                         </Grid.Row>
+                      
                         <Grid.Row>
                             <Button onClick={this.createCity}>Create New City</Button>
                         </Grid.Row>
