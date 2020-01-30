@@ -1,4 +1,4 @@
-# Welcome to the Nope-ler Weather Tracker, utilizing the React.js User Interface Library and Flask WSGI server. 
+# Welcome to the Nope-ler Weather Tracker, utilizing React.js UI library and Flask WSGI server. 
 
 # Developed by:
 1. Matt Welbourn https://www.linkedin.com/in/matt-welbourn-58ba6457,
