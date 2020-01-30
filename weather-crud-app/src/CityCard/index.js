@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'semantic-ui-react';
+import '../CSS/App.css'
 
 import { openWeatherApiKey } from '../keys/keys'
 
@@ -40,16 +41,23 @@ class CityCard extends Component {
         
         return (
 
-            <Card key={this.props.city.id} >
+            <Card className="card" key={this.props.city.id} >
                 <Card.Content>
                     <Card.Header onClick={this.handleShow}>{weather.name}</Card.Header>
                 </Card.Content>
+                {weather.weather ? 
+                <React.Fragment>
                 <Card.Content>
                     <Card.Description>{weather && weather.weather[0].description}</Card.Description>
                 </Card.Content>
                 <Card.Content>
                     <Card.Description>{weather && weather.main.temp}</Card.Description>
                 </Card.Content>
+                </React.Fragment>
+                : 
+                <Card.Content>
+                    <Card.Header>That is not a real city</Card.Header>
+                </Card.Content> }
                 <Card.Content extra>
                     <Button onClick={() => this.props.deleteCity(this.props.city.id)}>Delete City</Button>
                     <Button onClick={() => this.props.editCity(this.props.city.id)}>Edit City</Button>

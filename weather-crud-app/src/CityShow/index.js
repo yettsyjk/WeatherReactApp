@@ -59,7 +59,7 @@ class CityShow extends Component {
                 stackable
             >
                 <Grid.Row>
-                    <Box>{cityName}</Box>
+                    {cityName}
                 </Grid.Row>
             </Grid>
         )
