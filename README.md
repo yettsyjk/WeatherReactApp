@@ -21,8 +21,8 @@ Explore the app: Open the new scaffolded application and let's observe what's be
 6. User can logout
 
 # Developed by:
-1. Matt Welbourn https://www.linkedin.com/in/matt-welbourn-58ba6457,
-2. Sam Liman https://www.linkedin.com/in/samliman,
+1. Matt Welbourn https://www.linkedin.com/in/matt-welbourn-58ba6457
+2. Sam Liman https://www.linkedin.com/in/samliman
 3. and Yettsy Knapp https://www.linkedin.com/in/yettsy-jo-knapp
 
 (c) 2020 Matt Welbourn, Sam Liman, Yettsy Knapp.
