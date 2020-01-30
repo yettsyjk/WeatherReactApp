@@ -27,7 +27,7 @@ class CityContainer extends Component {
         e.preventDefault();
 
         try {
-            const createdCityResponse = await fetch(`http://localhost:8000/api/v1/cities/`, {
+            const createdCityResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/`, {
                 method: 'POST',
                 body: JSON.stringify(cityFromTheForm),
                 headers: {
@@ -70,7 +70,7 @@ class CityContainer extends Component {
 
     getCities = async () => {
         try {
-            const cities = await fetch(`http://localhost:8000/api/v1/cities/`, { credentials: 'include' });
+            const cities = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/`, { credentials: 'include' });
             const parsedCities = await cities.json();
 
             this.setState({
@@ -106,7 +106,7 @@ class CityContainer extends Component {
         e.preventDefault()
 
         try {
-            const updateResponse = await fetch(`http://localhost:8000/api/v1/cities/${this.state.cityToEdit.id}`, {
+            const updateResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/${this.state.cityToEdit.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(this.state.cityToEdit),
                 headers: {
@@ -141,7 +141,7 @@ class CityContainer extends Component {
 
     deleteCity = async (id) => {
         console.log(id)
-        const deleteCityResponse = await fetch(`http://localhost:8000/api/v1/cities/${id}`, {
+        const deleteCityResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/cities/${id}`, {
             method: 'DELETE',
             credentials: 'include'
         }).then(() => {
